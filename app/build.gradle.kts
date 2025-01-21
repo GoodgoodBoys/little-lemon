@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
+
 
 android {
     namespace = "com.example.littlelemon"
@@ -33,6 +36,21 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
+    }
+    buildFeatures {
+        viewBinding = true
+        compose = true
+    }
+}
+
+kotlin {
+    sourceSets.all {
+        languageSettings {
+            languageVersion = "2.0"
+        }
+    }
 }
 
 dependencies {
@@ -45,4 +63,21 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation ("androidx.compose.ui:ui:1.5.3")
+    implementation ("androidx.compose.material:material:1.5.3")
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.5.3")
+    implementation ("androidx.activity:activity-compose:1.7.2")
+
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+
+    implementation ("io.ktor:ktor-client-android:2.1.3")
+    implementation ("io.ktor:ktor-client-content-negotiation:2.1.3")
+    implementation ("io.ktor:ktor-serialization-kotlinx-json:2.1.3")
+
+    implementation ("androidx.room:room-runtime:2.5.0")
+    kapt ("androidx.room:room-compiler:2.5.0")
+    implementation ("androidx.room:room-ktx:2.5.0")
+    implementation("com.google.code.gson:gson:2.9.1")
+
 }
